@@ -1,4 +1,4 @@
-module gkbts
+module github.com/akrulq/gkbts
 
 go 1.16
 
