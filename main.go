@@ -56,7 +56,6 @@ func main() {
 	}
 
 	ims, err := crawlIMList(*token, *authCookie, *workspace)
-	fmt.Print(len(ims))
 	if err != nil {
 		log.Fatal(err)
 	}
