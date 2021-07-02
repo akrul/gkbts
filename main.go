@@ -128,10 +128,8 @@ func crawlIMList(token string, authCookie string, workspace string) ([]*SlackIMI
 	url := fmt.Sprintf(ClientBootUrlTemplate, workspace, time.Now().Unix())
 
 	payloadParams := map[string]string{
-		"build_version_ts":               "1625048244",
-		"version_ts":                     "1625048244",
 		"flannel_api_ver":                "4",
-		"include_min_version_bump_check": "1",
+		"include_min_version_bump_check": "0",
 		"only_self_subteams":             "1",
 		"token":                          token,
 		"_x_reason":                      "deferred-data",
