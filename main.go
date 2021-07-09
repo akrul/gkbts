@@ -109,12 +109,13 @@ func extractTsRecords(messages []*SlackMessage) ([]*TsRecord, error) {
 		for i, task := range tasks {
 			var r TsRecord
 			task = strings.TrimLeft(task, "• ")
+			task = strings.ReplaceAll(task, "\u00A0", " ")
 			task = jiraRegex.ReplaceAllString(task, "$1")
 			r.Text = task
 			r.Timestamp = getPrevWorkingDay(m.Timestamp)
 			spent := 8 / cnt
 			if i == cnt-1 {
-				spent = 8/cnt + 8%cnt
+				spent += 8 % cnt
 			}
 			r.SpentHrs = spent
 			tsRecords = append(tsRecords, &r)
