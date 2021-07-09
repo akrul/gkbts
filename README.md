@@ -28,5 +28,5 @@ prerequisites: auth_cookie, token (obtain through slack web login from any reque
 ```
 export to csv with formatting
 ```bash
-./gkbts --workspace=sampleworkspace --token="xoxc-..." --auth_cookie="OpPGMw%..." | jq -r '.[] | ["Musk, Elon", (.timestamp | fromdate | strftime("%d.%m.%Y")), "spacex.Sales", .text, .spent_hrs] | @csv'
+./gkbts --workspace=sampleworkspace --token="xoxc-..." --auth_cookie="OpPGMw%..." | jq -r '.[] | ["Musk, Elon", (.timestamp | fromdate | strftime("%d.%m.%Y")), "spacex.Sales", "Twitting", .spent_hrs, .text] | @csv'
 ```

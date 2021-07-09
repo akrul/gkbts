@@ -140,7 +140,7 @@ func crawlIMList(token string, authCookie string, workspace string) ([]*SlackIMI
 	if err != nil {
 		return nil, err
 	}
-	//TODO: check for ok=true
+
 	items := gjson.GetBytes(*data, "ims")
 	var ims []*SlackIMInfo
 	items.ForEach(func(key, value gjson.Result) bool {
@@ -180,7 +180,6 @@ func crawlConversationMessages(token string, authCookie string, workspace string
 		return nil, err
 	}
 
-	//TODO: check for ok = true
 	items := gjson.GetBytes(*data, "messages")
 	var messages []*SlackMessage
 	items.ForEach(func(key, value gjson.Result) bool {
@@ -223,6 +222,12 @@ func postSlackRequest(authCookie string, url string, payload *map[string]string)
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+
+	status := gjson.GetBytes(data, "ok")
+	if status.Type != gjson.True {
+		err := gjson.GetBytes(data, "error")
+		return nil, errors.New(fmt.Sprintf("error on slack response: %s", err.Str))
 	}
 
 	return &data, nil
